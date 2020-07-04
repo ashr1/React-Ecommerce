@@ -26,7 +26,24 @@ const StoreProvider = ({ children }) => {
 
   const clearCart = () => {};
 
-  const addProduct = () => {};
+  const addProduct = (product) => {
+    let products = state.products.slice();
+    products.push(product);
+    localStorage.setItem("products", JSON.stringify(products));
+    setState((prevState) => {
+      return {
+        ...prevState,
+        products,
+      };
+    });
+  };
+
+  //   addProduct = (product, callback) => {
+  //     let products = this.state.products.slice();
+  //     products.push(product);
+  //     localStorage.setItem('products', JSON.stringify(products));
+  //     this.setState({ products }, () => callback && callback());
+  //   }
 
   const checkout = () => {};
 
@@ -41,6 +58,23 @@ const StoreProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
 
+  const fetchStoreState = () => {
+    let user = localStorage.getItem("user");
+    let products = localStorage.getItem("products");
+    let cart = localStorage.getItem("cart");
+
+    user = user ? JSON.parse(user) : null;
+    products = products ? JSON.parse(products) : data.initProducts;
+    cart = cart ? JSON.parse(cart) : {};
+
+    return {
+      ...initialState,
+      user,
+      products,
+      cart,
+    };
+  };
+
   const initialState = {
     user: null,
     products: [],
@@ -53,28 +87,15 @@ const StoreProvider = ({ children }) => {
     checkout,
     logout,
   };
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(fetchStoreState);
 
-  useEffect(() => {
-    let user = localStorage.getItem("user");
-    let products = localStorage.getItem("products");
-    let cart = localStorage.getItem("cart");
-
-    user = user ? JSON.parse(user) : null;
-    products = products ? JSON.parse(products) : data.initProducts;
-    cart = cart ? JSON.parse(cart) : {};
-
-    //console.log(user, products, cart);
-
-    setState((prevState) => {
-      return ({
-        ...prevState,
-        user,
-        products,
-        cart
-      });
-    });
-  }, []);
+  // useEffect(() => {
+  //   const storeState = fetchStoreState()
+  //   setState({
+  //     ...initialState,
+  //     ...storeState,
+  //   })
+  // }, []);
 
   return (
     <StoreContext.Provider value={state}>{children}</StoreContext.Provider>

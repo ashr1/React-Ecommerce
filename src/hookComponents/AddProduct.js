@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import  StoreContext from "../context/StoreContext";
 import { Redirect } from "react-router-dom";
 
-const user = { username: "user", accessLevel: 0, password: "password" };
+// const user = { username: "user", accessLevel: 0, password: "password" };
 
 const initState = {
   name: "",
@@ -14,6 +15,8 @@ const initState = {
 const AddProduct = () => {
   const [product, setProduct] = useState(initState);
   const [error, setError] = useState("");
+
+  const store = useContext(StoreContext);
 
   const handleChange = (e) => {
     const update = { [e.target.name]: e.target.value };
@@ -29,14 +32,15 @@ const AddProduct = () => {
     const { name, price, stock } = product;
     if (name && price) {
       const displayProduct = { ...product, stock: stock || 0 };
-      console.log("addProduct: ", displayProduct);
+      store.addProduct(displayProduct);
+      // console.log("addProduct: ", displayProduct);
       setProduct(initState);
     } else {
       setError("Please enter name and price.");
     }
   };
 
-  return !(user && user.accessLevel < 1) ? (
+  return !(store.user && store.user.accessLevel < 1) ? (
     <div to="/"></div>
   ) : (
     <>
@@ -47,7 +51,7 @@ const AddProduct = () => {
       </div>
       <br />
       <br />
-      <form onSubmit={save}>
+      <form>
         <div className="columns is-mobile is-centered">
           <div className="column is-one-third">
             <div className="field">

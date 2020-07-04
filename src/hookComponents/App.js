@@ -20,9 +20,9 @@ export default () => {
       <StoreProvider>
         <Nav />
         <Login />
+        <AddProduct />
       </StoreProvider>
       <ProductList />
-      <AddProduct />
       <Cart />
     </>
   );

@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useRef } from "react";
 import { Switch, Link, Route, BrowserRouter as Router } from "react-router-dom";
 import data from "../Data";
 import Context from "../Context";
@@ -14,16 +14,20 @@ import ProductList from "./ProductList";
 import Cart from "./Cart";
 
 export default () => {
-  
+  const routerRef = useRef();
   return (
     <>
-      <StoreProvider>
-        <Nav />
-        <Login />
-        <AddProduct />
-        <ProductList />
-        <Cart />
-      </StoreProvider>
+      <Router ref={routerRef}>
+        <StoreProvider routerRef={routerRef}>
+          <Nav />
+          <Switch>
+            <Route exact path="/" component={ProductList} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/add-product" component={AddProduct} />
+            <Route exact path="/cart" component={Cart} />
+          </Switch>
+        </StoreProvider>
+      </Router>
     </>
   );
 };

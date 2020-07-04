@@ -81,8 +81,10 @@ const Login = () => {
       </div>
     </>
   ) : (
-    <div to="/products">You are logged in.</div>
+    <Redirect to="/">You are logged in.</Redirect>
   );
 };
 
 export default Login;
+
+{/* <div to="/products">You are logged in.</div> */}

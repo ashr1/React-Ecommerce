@@ -36,24 +36,24 @@ const Nav = () => {
         </a>
       </div>
       <div className={`navbar-menu ${showMenu ? "is-active" : ""}`}>
-        <div to="/products" className="navbar-item">
+        <Link to="/" className="navbar-item">
           Products
-        </div>
+        </Link>
         {store.user && store.user.accessLevel < 1 && (
-          <div to="/add-product" className="navbar-item">
+          <Link to="/add-product" className="navbar-item">
             Add Product
-          </div>
+          </Link>
         )}
-        <div to="/cart" className="navbar-item">
+        <Link to="/cart" className="navbar-item">
           Cart
           <span className="tag is-primary" style={{ marginLeft: "5px" }}>
             {Object.keys(store.cart).length}
           </span>
-        </div>
+        </Link>
         {!store.user ? (
-          <div to="/login" className="navbar-item">
+          <Link to="/login" className="navbar-item">
             Login
-          </div>
+          </Link>
         ) : (
           <a className="navbar-item" onClick={store.logout}>
             Logout
@@ -65,3 +65,7 @@ const Nav = () => {
 };
 
 export default Nav;
+
+{/* <div to="/products" className="navbar-item">
+          Products
+        </div> */}

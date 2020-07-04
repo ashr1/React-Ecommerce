@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import StoreContext from "../context/StoreContext";
 import data from "../Data";
 
-const StoreProvider = ({ children }) => {
+const StoreProvider = ({ children, routerRef }) => {
   function addToCart(cartItem) {
     // console.log(cartItem);
     console.log("the ref cart: ", newStateRef.current.cart);
@@ -108,7 +108,43 @@ const StoreProvider = ({ children }) => {
   //     this.setState({ products }, () => callback && callback());
   //   }
 
-  const checkout = () => {};
+  const checkout = () => {
+    const { user, products, cart } = newStateRef.current;
+    if (!user) {
+      // console.log("you must login to checkout");
+      routerRef.current.history.push("/login");
+      return;
+    }
+    const productsUpdate = products.map((p) => {
+      if (cart[p.name]) {
+        p.stock -= cart[p.name].amount;
+      }
+      return p;
+    });
+    setState((prevState) => {
+      return {
+        ...prevState,
+        products: productsUpdate,
+      };
+    });
+    clearCart();
+  };
+
+  //   checkout = () => {
+  //     if(!this.state.user) {
+  //       this.routerRef.current.history.push("/login");
+  //       return;
+  //     }
+  //     const cart = this.state.cart;
+  //     const products = this.state.products.map(p => {
+  //       if(cart[p.name]) {
+  //         p.stock -= cart[p.name].amount;
+  //       }
+  //       return p;
+  //     })
+  //     this.setState({ products });
+  //     this.clearCart();
+  //   }
 
   const logout = (e) => {
     e.preventDefault();

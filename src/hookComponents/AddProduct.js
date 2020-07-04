@@ -41,7 +41,7 @@ const AddProduct = () => {
   };
 
   return !(store.user && store.user.accessLevel < 1) ? (
-    <div to="/"></div>
+    <Redirect to="/"></Redirect>
   ) : (
     <>
       <div className="hero is-primary">

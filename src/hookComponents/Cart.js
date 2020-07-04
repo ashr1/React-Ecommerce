@@ -4,10 +4,10 @@ import CartItem from "./CartItem";
 
 // const removeFromCart = () => { console.log('removeFromCart')}
 // const clearCart = () => { console.log('clearCart')}
-const checkout = () => { console.log('checkout')}
+// const checkout = () => { console.log('checkout')}
 
 const Cart = () => {
-  const { cart, clearCart, removeFromCart } = useContext(StoreContext);
+  const { cart, clearCart, removeFromCart, checkout } = useContext(StoreContext);
   // const cart = cartData;
   let cartKeys = Object.keys(cart || {});
   return (

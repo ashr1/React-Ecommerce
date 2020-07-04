@@ -3,7 +3,39 @@ import StoreContext from "../context/StoreContext";
 import data from "../Data";
 
 const StoreProvider = ({ children }) => {
-  const addToCart = () => {};
+  const addToCart = (cartItem) => {
+    // console.log(cartItem);
+    let cart = state.cart;
+    // cart["Adidas Samba Shoes"] = {
+    //   id: "Adidas Samba Shoes",
+    //   product: {
+    //     desc:
+    //       "Cras sagittis. Praesent nec nisl a purus blandit viverra. Ut leo. Donec quamelis, ultricies nec, pellentesque eu, pretium quis, sem. Fusce a quam.",
+    //     name: "Adidas Samba Shoes",
+    //     price: 59.99,
+    //     shortDesc:
+    //       "Nulla facilisi. Curabitur at lacus ac velit ornare lobortis.",
+    //     stock: 2,
+    //   },
+    //   amount: 1,
+    // };
+    if (cart[cartItem.id]) {
+      cart[cartItem.id].amount += cartItem.amount;
+    } else {
+      cart[cartItem.id] = cartItem;
+    }
+    if (cart[cartItem.id].amount > cart[cartItem.id].product.stock) {
+      cart[cartItem.id].amount = cart[cartItem.id].product.stock;
+    }
+    // console.log(cart);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setState((prevState) => {
+      return {
+        ...prevState,
+        cart,
+      };
+    });
+  };
 
   const removeFromCart = () => {};
 

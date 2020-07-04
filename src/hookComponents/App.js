@@ -21,8 +21,8 @@ export default () => {
         <Nav />
         <Login />
         <AddProduct />
+        <ProductList />
       </StoreProvider>
-      <ProductList />
       <Cart />
     </>
   );

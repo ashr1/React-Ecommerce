@@ -6,12 +6,12 @@ import ProductItem from "./ProductItem";
 
 const ProductList = () => {
   const store = useContext(StoreContext);
-  const productToCartItem = (product) => {
-    const cartItem = {
-      id: product.name,
-      product,
-      amount: 1,
-    };
+  const productToCartItem = (cartItem) => {
+    // const cartItem = {
+    //   id: product.name,
+    //   product,
+    //   amount: 1,
+    // };
     store.addToCart(cartItem);
   };
   return (
@@ -29,7 +29,7 @@ const ProductList = () => {
               <ProductItem
                 product={product}
                 key={index}
-                addToCart={() => productToCartItem(product)}
+                addToCart={productToCartItem}
               />
             ))
           ) : (

@@ -22,8 +22,8 @@ export default () => {
         <Login />
         <AddProduct />
         <ProductList />
+        <Cart />
       </StoreProvider>
-      <Cart />
     </>
   );
 };

@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import StoreContext from "../context/StoreContext";
 import data from "../Data";
 
 const StoreProvider = ({ children }) => {
-  const addToCart = (cartItem) => {
+  function addToCart(cartItem) {
     // console.log(cartItem);
-    let cart = state.cart;
+    console.log('the ref cart: ', newStateRef.current.cart);
+    // let cart = {...state.cart};
+    let cart = {...newStateRef.current.cart};
+    console.log('cart before add: ',cart);
     // cart["Adidas Samba Shoes"] = {
     //   id: "Adidas Samba Shoes",
     //   product: {
@@ -28,6 +31,7 @@ const StoreProvider = ({ children }) => {
       cart[cartItem.id].amount = cart[cartItem.id].product.stock;
     }
     // console.log(cart);
+    // debugger;
     localStorage.setItem("cart", JSON.stringify(cart));
     setState((prevState) => {
       return {
@@ -56,7 +60,23 @@ const StoreProvider = ({ children }) => {
     return false;
   };
 
-  const clearCart = () => {};
+  const clearCart = () => {
+    // console.log('clearCart')
+    let cart = {};
+    localStorage.removeItem("cart");
+    setState((prevState) => {
+      return {
+        ...prevState,
+        cart,
+      };
+    });
+  };
+
+  //   clearCart = () => {
+  //     let cart = {};
+  //     localStorage.removeItem('cart');
+  //     this.setState({ cart });
+  //   }
 
   const addProduct = (product) => {
     let products = state.products.slice();
@@ -94,11 +114,12 @@ const StoreProvider = ({ children }) => {
     let user = localStorage.getItem("user");
     let products = localStorage.getItem("products");
     let cart = localStorage.getItem("cart");
-
+    
     user = user ? JSON.parse(user) : null;
     products = products ? JSON.parse(products) : data.initProducts;
     cart = cart ? JSON.parse(cart) : {};
-
+    
+    console.log('fetched cart: ', cart);
     return {
       ...initialState,
       user,
@@ -120,14 +141,11 @@ const StoreProvider = ({ children }) => {
     logout,
   };
   const [state, setState] = useState(fetchStoreState);
+  const newStateRef = useRef();
 
-  // useEffect(() => {
-  //   const storeState = fetchStoreState()
-  //   setState({
-  //     ...initialState,
-  //     ...storeState,
-  //   })
-  // }, []);
+  useEffect(() => {
+    newStateRef.current = state
+  });
 
   return (
     <StoreContext.Provider value={state}>{children}</StoreContext.Provider>

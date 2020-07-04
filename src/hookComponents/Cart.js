@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
+import StoreContext from '../context/StoreContext';
 import CartItem from "./CartItem";
 
 const removeFromCart = () => { console.log('removeFromCart')}
-const clearCart = () => { console.log('clearCart')}
+// const clearCart = () => { console.log('clearCart')}
 const checkout = () => { console.log('checkout')}
 
 const Cart = () => {
-  const cart = cartData;
+  const { cart, clearCart } = useContext(StoreContext);
+  // const cart = cartData;
   let cartKeys = Object.keys(cart || {});
   return (
     <>
@@ -59,49 +61,49 @@ const Cart = () => {
 
 export default Cart;
 
-const pumaShoes = {
-    name: "Puma Shoes",
-    stock: 11,
-    price: 399.99,
-    shortDesc: "Nulla facilisi. Curabitur at lacus ac velit ornare lobortis.",
-    desc:
-      "Cras sagittis. Praesent nec nisl a purus blandit viverra. Ut leo. Donec quamelis, ultricies nec, pellentesque eu, pretium quis, sem. Fusce a quam.",
-  };
+// const pumaShoes = {
+//     name: "Puma Shoes",
+//     stock: 11,
+//     price: 399.99,
+//     shortDesc: "Nulla facilisi. Curabitur at lacus ac velit ornare lobortis.",
+//     desc:
+//       "Cras sagittis. Praesent nec nisl a purus blandit viverra. Ut leo. Donec quamelis, ultricies nec, pellentesque eu, pretium quis, sem. Fusce a quam.",
+//   };
   
-  const nikeJacket = {
-    name: "Nike Track Jacket",
-    stock: 15,
-    price: 79.99,
-    shortDesc: "Nulla facilisi. Curabitur at lacus ac velit ornare lobortis.",
-    desc:
-      "Cras sagittis. Praesent nec nisl a purus blandit viverra. Ut leo. Donec quamelis, ultricies nec, pellentesque eu, pretium quis, sem. Fusce a quam.",
-  };
+//   const nikeJacket = {
+//     name: "Nike Track Jacket",
+//     stock: 15,
+//     price: 79.99,
+//     shortDesc: "Nulla facilisi. Curabitur at lacus ac velit ornare lobortis.",
+//     desc:
+//       "Cras sagittis. Praesent nec nisl a purus blandit viverra. Ut leo. Donec quamelis, ultricies nec, pellentesque eu, pretium quis, sem. Fusce a quam.",
+//   };
   
-  const northFaceWB = {
-    name: "North Face Windbreaker",
-    stock: 10,
-    price: 89.99,
-    shortDesc: "Nulla facilisi. Curabitur at lacus ac velit ornare lobortis.",
-    desc:
-      "Cras sagittis. Praesent nec nisl a purus blandit viverra. Ut leo. Donec quamelis, ultricies nec, pellentesque eu, pretium quis, sem. Fusce a quam.",
-  };
+//   const northFaceWB = {
+//     name: "North Face Windbreaker",
+//     stock: 10,
+//     price: 89.99,
+//     shortDesc: "Nulla facilisi. Curabitur at lacus ac velit ornare lobortis.",
+//     desc:
+//       "Cras sagittis. Praesent nec nisl a purus blandit viverra. Ut leo. Donec quamelis, ultricies nec, pellentesque eu, pretium quis, sem. Fusce a quam.",
+//   };
 
-const cartData = {
-  "Puma Shoes": {
-    id: "Puma Shoes",
-    product: { ...pumaShoes },
-    amount: 4,
-  },
-  "Nike Track Jacket": {
-    id: "Nike Track Jacket",
-    product: { ...nikeJacket },
-    amount: 3,
-  },
-  "North Face Windbreaker": {
-    id: "North Face Windbreaker",
-    product: { ...northFaceWB },
-    amount: 1,
-  },
-};
+// const cartData = {
+//   "Puma Shoes": {
+//     id: "Puma Shoes",
+//     product: { ...pumaShoes },
+//     amount: 4,
+//   },
+//   "Nike Track Jacket": {
+//     id: "Nike Track Jacket",
+//     product: { ...nikeJacket },
+//     amount: 3,
+//   },
+//   "North Face Windbreaker": {
+//     id: "North Face Windbreaker",
+//     product: { ...northFaceWB },
+//     amount: 1,
+//   },
+// };
 
 

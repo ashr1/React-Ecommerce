@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 // toggle showMenu on user click 
 // user and if they are admin 
 
-const user = { username: 'user', accessLevel: 1, password: "password" }
-const cart = {}
-const logout = () => { console.log('logout') }
+// const user = { username: 'user', accessLevel: 1, password: "password" }
+// const cart = {}
+// const logout = () => { console.log('logout') }
 
 const Nav = () => {
   const [showMenu, toggleShowMenu] = useState(false)
+  const store = useContext(StoreContext)
   return (
     <nav
       className="navbar container"
@@ -38,7 +39,7 @@ const Nav = () => {
         <div to="/products" className="navbar-item">
           Products
         </div>
-        {user && user.accessLevel < 1 && (
+        {store.user && store.user.accessLevel < 1 && (
           <div to="/add-product" className="navbar-item">
             Add Product
           </div>
@@ -46,15 +47,15 @@ const Nav = () => {
         <div to="/cart" className="navbar-item">
           Cart
           <span className="tag is-primary" style={{ marginLeft: "5px" }}>
-            {Object.keys(cart).length}
+            {Object.keys(store.cart).length}
           </span>
         </div>
-        {!user ? (
+        {!store.user ? (
           <div to="/login" className="navbar-item">
             Login
           </div>
         ) : (
-          <a className="navbar-item" onClick={logout}>
+          <a className="navbar-item" onClick={store.logout}>
             Logout
           </a>
         )}

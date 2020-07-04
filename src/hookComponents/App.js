@@ -14,22 +14,14 @@ import ProductList from "./ProductList";
 import Cart from "./Cart";
 
 export default () => {
-  useEffect(() => {
-    let user = localStorage.getItem("user");
-    let products = localStorage.getItem("products");
-    let cart = localStorage.getItem("cart");
-
-    user = user ? JSON.parse(user) : null;
-    products = products ? JSON.parse(products) : data.initProducts;
-    cart = cart ? JSON.parse(cart) : {};
-
-    console.log(user, products, cart);
-  }, []);
+  
   return (
     <>
-      <Nav />
+      <StoreProvider>
+        <Nav />
+        <Login />
+      </StoreProvider>
       <ProductList />
-      <Login />
       <AddProduct />
       <Cart />
     </>

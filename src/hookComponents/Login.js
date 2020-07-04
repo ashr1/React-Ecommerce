@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import StoreContext from '../context/StoreContext';
 import { Redirect } from "react-router-dom";
 
-const authenticateUser = (username, password) => false;
-const currentUser = false;
+// const authenticateUser = (username, password) => false;
+// const currentUser = false;
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -11,6 +12,8 @@ const Login = () => {
   });
 
   const [error,setError] = useState('')
+
+  const store = useContext(StoreContext);
 
   const handleChange = (e) => {
     const updated = { [e.target.name]: e.target.value };
@@ -27,13 +30,13 @@ const Login = () => {
       setError("You must enter all fields!")
       return;
     }
-    const loggedIn = authenticateUser(user.username, user.password);
+    const loggedIn = store.login(user.username, user.password);
     if (!loggedIn) {
       setError("Invalid credentials.")
     }
   };
 
-  return !currentUser ? (
+  return !store.user ? (
     <>
       <div className="hero is-primary ">
         <div className="hero-body container">

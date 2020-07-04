@@ -5,10 +5,10 @@ import data from "../Data";
 const StoreProvider = ({ children }) => {
   function addToCart(cartItem) {
     // console.log(cartItem);
-    console.log('the ref cart: ', newStateRef.current.cart);
+    console.log("the ref cart: ", newStateRef.current.cart);
     // let cart = {...state.cart};
-    let cart = {...newStateRef.current.cart};
-    console.log('cart before add: ',cart);
+    let cart = { ...newStateRef.current.cart };
+    console.log("cart before add: ", cart);
     // cart["Adidas Samba Shoes"] = {
     //   id: "Adidas Samba Shoes",
     //   product: {
@@ -39,9 +39,20 @@ const StoreProvider = ({ children }) => {
         cart,
       };
     });
-  };
+  }
 
-  const removeFromCart = () => {};
+  const removeFromCart = (cartItemId) => {
+    // console.log("removeFromCart");
+    let cart = { ...newStateRef.current.cart };
+    delete cart[cartItemId];
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setState((prevState) => {
+      return {
+        ...prevState,
+        cart,
+      };
+    });
+  };
 
   const login = (usrn, pwd) => {
     const user = data.users.find(
@@ -114,12 +125,12 @@ const StoreProvider = ({ children }) => {
     let user = localStorage.getItem("user");
     let products = localStorage.getItem("products");
     let cart = localStorage.getItem("cart");
-    
+
     user = user ? JSON.parse(user) : null;
     products = products ? JSON.parse(products) : data.initProducts;
     cart = cart ? JSON.parse(cart) : {};
-    
-    console.log('fetched cart: ', cart);
+
+    console.log("fetched cart: ", cart);
     return {
       ...initialState,
       user,
@@ -144,7 +155,7 @@ const StoreProvider = ({ children }) => {
   const newStateRef = useRef();
 
   useEffect(() => {
-    newStateRef.current = state
+    newStateRef.current = state;
   });
 
   return (

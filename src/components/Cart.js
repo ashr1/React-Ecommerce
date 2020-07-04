@@ -2,9 +2,9 @@ import React, { Fragment } from "react";
 import withContext from "../withContext";
 import CartItem from "./CartItem";
 
-const Cart = props => {
-  const { cart } = props.context;
-  const cartKeys = Object.keys(cart || {});
+const Cart = (props) => {
+  const cart = props.context.cart;
+  let cartKeys = Object.keys(cart || {});
   return (
     <Fragment>
       <div className="hero is-primary">
@@ -16,10 +16,10 @@ const Cart = props => {
       <div className="container">
         {cartKeys.length ? (
           <div className="column columns is-multiline">
-            {cartKeys.map(key => (
+            {cartKeys.map((key) => (
               <CartItem
-                cartKey={key}
                 key={key}
+                cartKey={key}
                 cartItem={cart[key]}
                 removeFromCart={props.context.removeFromCart}
               />
@@ -29,13 +29,13 @@ const Cart = props => {
               <div className="is-pulled-right">
                 <button
                   onClick={props.context.clearCart}
-                  className="button is-warning "
+                  className="button is-warning"
                 >
-                  Clear cart
+                  Clear Cart
                 </button>{" "}
                 <button
-                  className="button is-success"
                   onClick={props.context.checkout}
+                  className="button is-success"
                 >
                   Checkout
                 </button>
@@ -44,7 +44,9 @@ const Cart = props => {
           </div>
         ) : (
           <div className="column">
-            <div className="title has-text-grey-light">No item in cart!</div>
+            <span className="title has-text-grey-light">
+              No item in the cart!
+            </span>
           </div>
         )}
       </div>

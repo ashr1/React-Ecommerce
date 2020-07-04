@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import ProductItem from "./ProductItem";
 import withContext from "../withContext";
+import ProductItem from "./ProductItem";
 
-const ProductList = props => {
+const ProductList = (props) => {
   const { products } = props.context;
   return (
     <Fragment>
@@ -25,7 +25,7 @@ const ProductList = props => {
           ) : (
             <div className="column">
               <span className="title has-text-grey-light">
-                No product found!
+                No products found!
               </span>
             </div>
           )}

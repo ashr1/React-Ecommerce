@@ -4,10 +4,10 @@ import { Redirect } from "react-router-dom";
 
 const initState = {
   name: "",
-  price: "",
   stock: "",
+  price: "",
   shortDesc: "",
-  description: ""
+  desc: "",
 };
 
 class AddProduct extends Component {
@@ -15,39 +15,38 @@ class AddProduct extends Component {
     super(props);
     this.state = initState;
   }
-
-  save = e => {
+  save = (e) => {
     e.preventDefault();
-    const { name, price, stock, shortDesc, description } = this.state;
+    const { name, stock, price, shortDesc, desc } = this.state;
     if (name && price) {
       this.props.context.addProduct(
         {
           name,
           price,
           shortDesc,
-          description,
-          stock: stock || 0
+          desc,
+          stock: stock || 0,
         },
         () => this.setState(initState)
       );
     } else {
-      this.setState({ error: "Please Enter name and price" });
+      this.setState({ error: "Please enter name and price." });
     }
   };
 
-  handleChange = e =>
+  handleChange = (e) =>
     this.setState({ [e.target.name]: e.target.value, error: "" });
 
   render() {
-    const { name, price, stock, shortDesc, description } = this.state;
+    const { name, stock, price, shortDesc, desc } = this.state;
     const { user } = this.props.context;
     return !(user && user.accessLevel < 1) ? (
       <Redirect to="/" />
     ) : (
       <Fragment>
-        <div className="hero is-primary ">
+        <div className="hero is-primary">
           <div className="hero-body container">
-            <h4 className="title">Login</h4>
+            <h4 className="title">Add Product</h4>
           </div>
         </div>
         <br />
@@ -78,7 +77,7 @@ class AddProduct extends Component {
                 />
               </div>
               <div className="field">
-                <label className="label">Available in Stock: </label>
+                <label className="label">Available in stock: </label>
                 <input
                   className="input"
                   type="number"
@@ -88,7 +87,7 @@ class AddProduct extends Component {
                 />
               </div>
               <div className="field">
-                <label className="label">Short Description: </label>
+              <label className="label">Short Description: </label>
                 <input
                   className="input"
                   type="text"
@@ -98,28 +97,28 @@ class AddProduct extends Component {
                 />
               </div>
               <div className="field">
-                <label className="label">Description: </label>
-                <textarea
-                  className="textarea"
-                  type="text"
-                  rows="2"
-                  style={{ resize: "none" }}
-                  name="description"
-                  value={description}
-                  onChange={this.handleChange}
-                />
+                  <label className="label">Description: </label>
+                  <textarea
+                    className="textarea"
+                    type="text"
+                    rows="2"
+                    style={{ resize: "none" }}
+                    name="desc"
+                    value={desc}
+                    onChange={this.handleChange}
+                  />
               </div>
               {this.state.error && (
                 <div className="error">{this.state.error}</div>
               )}
               <div className="field is-clearfix">
-                <button
-                  className="button is-primary is-outlined is-pulled-right"
-                  type="submit"
-                  onClick={this.save}
-                >
-                  Submit
-                </button>
+                  <button
+                    className="button is-primary is-outlined is-pulled-right"
+                    type="submit"
+                    onClick={this.save}
+                  >
+                      Submit
+                  </button>
               </div>
             </div>
           </div>
